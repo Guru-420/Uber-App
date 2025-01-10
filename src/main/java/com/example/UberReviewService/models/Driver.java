@@ -3,6 +3,7 @@ package com.example.UberReviewService.models;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
@@ -21,6 +22,6 @@ public class Driver extends BaseModel {
     @Column(nullable = false,unique = true)
     private String licenseNumber;
 
-    @OneToMany(mappedBy = "driver")
+    @OneToMany(mappedBy = "driver",fetch = FetchType.LAZY)
     private List<Booking> dbookings = new ArrayList<>();
 }

@@ -1,8 +1,10 @@
 package com.example.UberReviewService.services;
 
 import com.example.UberReviewService.models.Booking;
+import com.example.UberReviewService.models.Driver;
 import com.example.UberReviewService.models.Review;
 import com.example.UberReviewService.repositories.BookingRepository;
+import com.example.UberReviewService.repositories.DriverRepository;
 import com.example.UberReviewService.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,9 +20,11 @@ public class ReviewService implements CommandLineRunner {
 
     private final ReviewRepository reviewRepository;
     private final BookingRepository bookingRepository;
-    public ReviewService(ReviewRepository reviewRepository,BookingRepository bookingRepository){
+    private final DriverRepository driverRepository;
+    public ReviewService(ReviewRepository reviewRepository,BookingRepository bookingRepository,DriverRepository driverRepository){
         this.bookingRepository=bookingRepository;
         this.reviewRepository=reviewRepository;
+        this.driverRepository=driverRepository;
     }
     @Override
     public void run(String... args) throws Exception {
@@ -38,9 +42,22 @@ public class ReviewService implements CommandLineRunner {
 //        List<Review> reviews = reviewRepository.findAll();
 //        for(Review review: reviews)
 //            System.out.println(reviewRepository.save(review));
-        Optional<Booking> b = bookingRepository.findById(1L);
-        if(b.isPresent())
-            bookingRepository.delete(b.get());
+//        Optional<Booking> b = bookingRepository.findById(1L);
+//        if(b.isPresent())
+//            bookingRepository.delete(b.get());
+
+//        Optional<Driver> driver = driverRepository.findByIdAndLicenseNumber(1L,"FGF11222");
+//        if(driver.isPresent()){
+//            System.out.println(driver.get().getName());
+//            List<Booking> bookings = bookingRepository.findALlByDriverId(1L);
+//            for(Booking booking:bookings){
+//                System.out.println(booking.getBookingStatus());
+//            }
+//        }
+        Optional<Driver> driver = driverRepository.hqlFindByIdAndLicenseNumber(1L,"FGF11222");
+        if(driver.isPresent()) {
+           System.out.println(driver.get().getName());
+        }
 
     }
 }
